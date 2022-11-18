@@ -2,6 +2,8 @@
 
 Goroutine-safe wrapper interface over a generic slice using [sync.RWMutex](https://pkg.go.dev/sync#RWMutex).
 
+Very simple. Performance not guaranteed.
+
 ```go
 s := syncslice.Make[string](2, 3)
 
