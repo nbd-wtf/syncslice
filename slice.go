@@ -88,12 +88,14 @@ func (s *SliceOf[R]) Range(op func(index int, value R) bool) {
 	}
 }
 
-// Slice takes a part of the existing slice and returns a new SliceOf[R]. Equivalent to slice[from:to].
+// Slice takes a part of the existing slice and returns a new SliceOf[R]. Copies. Roughly equivalent to slice[from:to].
 func (s *SliceOf[R]) Slice(from, to int) *SliceOf[R] {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
-	return &SliceOf[R]{items: s.items[from:to]}
+	next := make([]R, to-from)
+	copy(next, s.items[from:to])
+	return &SliceOf[R]{items: next}
 }
 
 // Do takes a function op and calls it with the full contents of the slice in its raw form, for any lower-level

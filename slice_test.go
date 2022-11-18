@@ -21,10 +21,9 @@ func Example() {
 		fmt.Println(item.Index, item.Value)
 	}
 
-	world := s.Get(1)
 	next := s.Slice(0, 1)
 	next.Append("cruel")
-	next.Append(world)
+	next.Append(s.Get(1))
 	next.Append("bogus")
 	next.Append("bogus")
 	next.Append("bogus")
